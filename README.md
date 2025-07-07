@@ -19,3 +19,9 @@ Este proyecto es una API REST construida con Spring Boot para gestionar tareas d
 
 ## 📦 Estructura
 
+com.ivan.tareas
+├── TareasApplication.java
+├── HolaController.java
+├── Tarea.java
+└── TareaService.java
+
