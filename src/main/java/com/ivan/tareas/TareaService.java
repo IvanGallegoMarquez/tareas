@@ -1,23 +1,41 @@
 package com.ivan.tareas;
 
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TareaService {
-    private List<Tarea> tareas = new ArrayList<>();
 
-    public TareaService() {
-        tareas.add(new Tarea(1L, "Aprender Spring Boot", false));
-        tareas.add(new Tarea(2L, "Crear primer API", false));
+    private final TareaRepository tareaRepo;
+
+    public TareaService(TareaRepository tareaRepo) {
+        this.tareaRepo = tareaRepo;
     }
 
-    public List<Tarea> obtenerTodas() {
-        return tareas;
+    public Iterable<Tarea> obtenerTodas() {
+        return tareaRepo.findAll();
     }
 
     public void añadirTarea(Tarea tarea) {
-        tareas.add(tarea);
+        tareaRepo.save(tarea);
+    }
+
+    public Tarea actualizarTarea(Long id, Tarea nuevaTarea) {
+        return tareaRepo.findById(id)
+                .map(tarea -> {
+                    tarea.setDescripcion(nuevaTarea.getDescripcion());
+                    tarea.setCompletada(nuevaTarea.isCompletada());
+                    return tareaRepo.save(tarea);
+                })
+                .orElse(null);
+    }
+
+    public void eliminarTarea(Long id) {
+        tareaRepo.deleteById(id);
+    }
+
+    // 🎯 Nuevo: buscar tarea por ID
+    public Optional<Tarea> obtenerPorId(Long id) {
+        return tareaRepo.findById(id);
     }
 }

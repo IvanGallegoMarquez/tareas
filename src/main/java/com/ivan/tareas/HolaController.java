@@ -1,9 +1,6 @@
 package com.ivan.tareas;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +21,15 @@ public class HolaController {
     @PostMapping("/tareas")
     public void agregarTarea(@RequestBody Tarea tarea) {
         tareaService.añadirTarea(tarea);
+    }
+
+    @PutMapping("/tareas/{id}")
+    public Tarea actualizarTarea(@PathVariable Long id, @RequestBody Tarea tarea) {
+        return tareaService.actualizarTarea(id, tarea);
+    }
+
+    @DeleteMapping("/tareas/{id}")
+    public void eliminarTarea(@PathVariable Long id) {
+        tareaService.eliminarTarea(id);
     }
 }
