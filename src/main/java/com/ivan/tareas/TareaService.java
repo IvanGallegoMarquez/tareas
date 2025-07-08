@@ -34,7 +34,7 @@ public class TareaService {
         tareaRepo.deleteById(id);
     }
 
-    // 🎯 Nuevo: buscar tarea por ID
+    // Buscar tarea por ID
     public Optional<Tarea> obtenerPorId(Long id) {
         return tareaRepo.findById(id);
     }
